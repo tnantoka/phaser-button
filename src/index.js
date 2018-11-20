@@ -17,29 +17,14 @@ const config = {
 const game = new Phaser.Game(config);
 
 function preload() {
-  this.load.setBaseURL('./');
-
-  this.load.image('sky', 'assets/skies/space3.png');
-  this.load.image('logo', 'assets/sprites/phaser3-logo.png');
-  this.load.image('red', 'assets/particles/red.png');
 }
 
 function create() {
-  this.add.image(400, 300, 'sky');
-
-  const particles = this.add.particles('red');
-
-  const emitter = particles.createEmitter({
-    speed: 100,
-    scale: { start: 1, end: 0 },
-    blendMode: 'ADD'
+  let count = 1;
+  const text = this.add.text(10, 10, 'Count 1', { fontSize: 30 });
+  text.setInteractive();
+  text.on('pointerdown', () => {
+    count++;
+    text.text = `Count ${count}`;
   });
-
-  const logo = this.physics.add.image(400, 100, 'logo');
-
-  logo.setVelocity(100, 200);
-  logo.setBounce(1, 1);
-  logo.setCollideWorldBounds(true);
-
-  emitter.startFollow(logo);
 }
